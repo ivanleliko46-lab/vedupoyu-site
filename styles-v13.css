@@ -187,7 +187,7 @@ body.v13-modal-open{overflow:hidden}
   left:18px;
   top:86px;
   z-index:1450;
-  width:280px;
+  width:245px;
   border:1px solid rgba(255,255,255,.2);
   border-radius:22px;
   overflow:hidden;
@@ -205,7 +205,7 @@ body.v13-modal-open{overflow:hidden}
 .welcome-video-bar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .welcome-video-bar button{border:0;border-radius:999px;background:var(--orange);color:#111;padding:8px 11px;font-size:11px;font-weight:900;cursor:pointer}
 @media(max-width:620px){
-  .welcome-video{left:12px;top:74px;width:min(58vw,220px);border-radius:18px}
+  .welcome-video{left:12px;top:74px;width:min(52vw,190px);border-radius:18px}
   .welcome-video-close{width:31px;height:31px;font-size:21px;line-height:27px}
   .welcome-video-bar{padding:8px 9px 9px}
   .welcome-video-bar span{display:none}
