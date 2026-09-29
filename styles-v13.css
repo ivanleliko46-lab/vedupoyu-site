@@ -181,4 +181,33 @@ body.v13-modal-open{overflow:hidden}
   }
 }
 
-\n/* floating welcome video */\n.welcome-video{position:fixed;left:18px;bottom:18px;z-index:1450;width:220px;border:1px solid rgba(255,255,255,.18);border-radius:22px;overflow:hidden;background:#090909;box-shadow:0 20px 60px rgba(0,0,0,.48);opacity:0;transform:translateY(18px) scale(.98);pointer-events:none;transition:opacity .28s ease,transform .28s ease}\n.welcome-video.is-visible{opacity:1;transform:none;pointer-events:auto}\n.welcome-video video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}\n.welcome-video-close{position:absolute;top:8px;right:8px;z-index:2;width:32px;height:32px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:rgba(0,0,0,.62);color:#fff;font-size:22px;line-height:28px;cursor:pointer;backdrop-filter:blur(8px)}\n.welcome-video-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px 10px;font-size:12px;font-weight:800}\n.welcome-video-bar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n.welcome-video-bar button{border:0;border-radius:999px;background:var(--orange);color:#111;padding:7px 10px;font-size:11px;font-weight:900;cursor:pointer}\n@media(max-width:620px){.welcome-video{left:12px;bottom:12px;width:min(43vw,174px);border-radius:18px}.welcome-video-close{width:29px;height:29px;font-size:20px;line-height:25px}.welcome-video-bar{padding:7px 8px 8px}.welcome-video-bar span{display:none}.welcome-video-bar button{width:100%}}\n
+/* floating welcome video — HQ top placement */
+.welcome-video{
+  position:fixed;
+  left:18px;
+  top:86px;
+  z-index:1450;
+  width:280px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:22px;
+  overflow:hidden;
+  background:#090909;
+  box-shadow:0 22px 70px rgba(0,0,0,.52);
+  opacity:0;
+  transform:translateY(-14px) scale(.985);
+  pointer-events:none;
+  transition:opacity .22s ease,transform .22s ease;
+}
+.welcome-video.is-visible{opacity:1;transform:none;pointer-events:auto}
+.welcome-video video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}
+.welcome-video-close{position:absolute;top:8px;right:8px;z-index:2;width:34px;height:34px;border:1px solid rgba(255,255,255,.32);border-radius:50%;background:rgba(0,0,0,.66);color:#fff;font-size:23px;line-height:30px;cursor:pointer;backdrop-filter:blur(8px)}
+.welcome-video-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 11px 11px;font-size:12px;font-weight:800}
+.welcome-video-bar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.welcome-video-bar button{border:0;border-radius:999px;background:var(--orange);color:#111;padding:8px 11px;font-size:11px;font-weight:900;cursor:pointer}
+@media(max-width:620px){
+  .welcome-video{left:12px;top:74px;width:min(58vw,220px);border-radius:18px}
+  .welcome-video-close{width:31px;height:31px;font-size:21px;line-height:27px}
+  .welcome-video-bar{padding:8px 9px 9px}
+  .welcome-video-bar span{display:none}
+  .welcome-video-bar button{width:100%}
+}

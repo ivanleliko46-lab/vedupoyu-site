@@ -103,4 +103,58 @@ document.querySelectorAll('[data-review-close]').forEach(el=>{
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape') closeReviewModal();
 });
-\n\n// Floating welcome video\n(() => {\n  const box = document.getElementById('welcomeVideo');\n  const video = document.getElementById('welcomeVideoPlayer');\n  const close = document.getElementById('welcomeVideoClose');\n  const sound = document.getElementById('welcomeVideoSound');\n  if (!box || !video) return;\n  if (sessionStorage.getItem('welcomeVideoClosed') === '1') return;\n  const show = () => { box.classList.add('is-visible'); video.play().catch(()=>{}); };\n  window.setTimeout(show, 650);\n  close?.addEventListener('click', () => {\n    box.classList.remove('is-visible');\n    video.pause();\n    sessionStorage.setItem('welcomeVideoClosed','1');\n  });\n  sound?.addEventListener('click', () => {\n    video.muted = !video.muted;\n    sound.textContent = video.muted ? '🔇 Звук' : '🔊 Звук';\n    sound.setAttribute('aria-label', video.muted ? 'Включить звук' : 'Выключить звук');\n    if (video.paused) video.play().catch(()=>{});\n  });\n})();\n
+
+// Floating welcome video — original-quality source assembled from small chunks
+(() => {
+  const box = document.getElementById('welcomeVideo');
+  const video = document.getElementById('welcomeVideoPlayer');
+  const close = document.getElementById('welcomeVideoClose');
+  const sound = document.getElementById('welcomeVideoSound');
+  if (!box || !video) return;
+
+  let closed = false;
+  let objectUrl = '';
+  const parts = [
+    'video-hq.part00',
+    'video-hq.part01',
+    'video-hq.part02',
+    'video-hq.part03'
+  ];
+
+  box.classList.add('is-visible');
+
+  Promise.all(parts.map(async (url) => {
+    const response = await fetch(url, {cache: 'force-cache'});
+    if (!response.ok) throw new Error(`Video chunk failed: ${url}`);
+    return response.arrayBuffer();
+  }))
+    .then((buffers) => {
+      if (closed) return;
+      const blob = new Blob(buffers, {type: 'video/mp4'});
+      objectUrl = URL.createObjectURL(blob);
+      video.src = objectUrl;
+      video.load();
+      return video.play();
+    })
+    .catch(() => {
+      if (!closed) {
+        video.src = 'assets/intro-popup.mp4';
+        video.load();
+        video.play().catch(() => {});
+      }
+    });
+
+  close?.addEventListener('click', () => {
+    closed = true;
+    box.classList.remove('is-visible');
+    video.pause();
+    if (objectUrl) URL.revokeObjectURL(objectUrl);
+  });
+
+  sound?.addEventListener('click', () => {
+    video.muted = !video.muted;
+    sound.textContent = video.muted ? '🔇 Звук' : '🔊 Звук';
+    sound.setAttribute('aria-label', video.muted ? 'Включить звук' : 'Выключить звук');
+    if (video.paused && video.src) video.play().catch(() => {});
+  });
+})();
